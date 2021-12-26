@@ -16,7 +16,6 @@ import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentSlideshowBinding;
 
 public class SlideshowFragment extends Fragment {
-
     private SlideshowViewModel slideshowViewModel;
     private FragmentSlideshowBinding binding;
 
@@ -26,16 +25,8 @@ public class SlideshowFragment extends Fragment {
                 new ViewModelProvider(this).get(SlideshowViewModel.class);
 
         binding = FragmentSlideshowBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
+        return binding.getRoot();
     }
 
     @Override

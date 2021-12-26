@@ -11,8 +11,8 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
-        buildConfigField "String", "DB_USER", ""
-        buildConfigField "String", 'DB_PASSWORD', ""
+        buildConfigField "String", "DB_USER", '"76555"'
+        buildConfigField "String", 'DB_PASSWORD', '"76tgggggg"'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

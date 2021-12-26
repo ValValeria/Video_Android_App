@@ -1,11 +1,14 @@
 package com.example.myapplication.ui.dao;
 
+import com.example.myapplication.ui.models.User;
 import com.example.myapplication.ui.models.Video;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VideoDao extends BaseDao implements IVideoDao{
     @Override
@@ -22,17 +25,47 @@ public class VideoDao extends BaseDao implements IVideoDao{
                 ResultSet resultSet = preparedVideoStatement.getResultSet();
                 resultSet.next();
 
-                video = new Video();
-                video.setId(resultSet.getInt("id"));
-                video.setTitle(resultSet.getString("title"));
-                video.setLikes(resultSet.getInt("likes"));
-                video.setPath(resultSet.getString("path"));
-
-                Integer userId = resultSet.getInt("user_id");
-
-                PreparedStatement preparedUserStatement = connection.prepareStatement("select * from users where id = ?");
+                video = setupResultSet(resultSet);
             }
         }
+
+        return video;
+    }
+
+    @Override
+    public List<Video> findVideos() throws SQLException {
+        try (Connection connection = getConnection()) {
+            PreparedStatement preparedVideoStatement = connection.prepareStatement("select * from videos");
+            ResultSet resultSet = preparedVideoStatement.executeQuery();
+            List<Video> videoList = new ArrayList<>();
+
+            while(resultSet.next()) {
+                videoList.add(setupResultSet(resultSet));
+            }
+
+            return videoList;
+        }
+    }
+
+    private Video setupResultSet(ResultSet resultSet) throws SQLException {
+        Video video = new Video();
+        video.setId(resultSet.getInt("id"));
+        video.setTitle(resultSet.getString("title"));
+        video.setLikes(resultSet.getInt("likes"));
+        video.setPath(resultSet.getString("path"));
+
+        Integer userId = resultSet.getInt("user_id");
+
+        PreparedStatement preparedUserStatement = getConnection().prepareStatement("select * from users where id = ?");
+        ResultSet resultUserSet = preparedUserStatement.executeQuery();
+
+        User user = new User();
+        user.setId(userId);
+        user.setUsername(resultUserSet.getString("username"));
+        user.setEmail(resultUserSet.getString("email"));
+        user.setPassword(resultUserSet.getString("password"));
+
+        video.setAuthor(user);
 
         return video;
     }
