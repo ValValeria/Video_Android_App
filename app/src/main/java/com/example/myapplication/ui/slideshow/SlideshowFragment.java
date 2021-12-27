@@ -16,14 +16,10 @@ import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentSlideshowBinding;
 
 public class SlideshowFragment extends Fragment {
-    private SlideshowViewModel slideshowViewModel;
     private FragmentSlideshowBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
-
         binding = FragmentSlideshowBinding.inflate(inflater, container, false);
 
         return binding.getRoot();
