@@ -22,4 +22,10 @@
         android:name="com.example.myapplication.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_upload_video"
+        android:name="com.example.myapplication.ui.upload_video.UploadVideoFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_upload_video" />
 </navigation>

@@ -1,8 +1,13 @@
 package com.example.myapplication;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
+import android.widget.SearchView;
 
 import com.example.myapplication.ui.observers.BaseObserver;
 import com.google.android.material.snackbar.Snackbar;
@@ -47,9 +52,23 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        Intent intent = getIntent();
+
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+
+            Log.i("MainActivity", query);
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
         return true;
     }
 

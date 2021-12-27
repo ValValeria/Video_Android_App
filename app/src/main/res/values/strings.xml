@@ -11,4 +11,11 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="nav_header_short_title">InVideo</string>
     <string name="home">Home</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_video_title">Upload an  video</string>
+    <string name="upload_video">Upload an video</string>
+    <string name="app_label">Search</string>
+    <string name="search_hint">Type here</string>
+    <string name="search">Search</string>
 </resources>
