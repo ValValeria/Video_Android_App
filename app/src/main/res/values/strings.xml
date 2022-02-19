@@ -29,4 +29,5 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="gallery">Videos</string>
     <string name="video">Video</string>
+    <string name="videos">Videos</string>
 </resources>

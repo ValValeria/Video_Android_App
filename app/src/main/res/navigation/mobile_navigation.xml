@@ -13,15 +13,21 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.myapplication.ui.gallery.GalleryFragment"
+        android:name="com.example.myapplication.ui.videos.VideosFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_videos" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.example.myapplication.ui.slideshow.SlideshowFragment"
+        android:name="com.example.myapplication.ui.video.VideoFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_video2" />
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.example.myapplication.ui.search.SearchFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/nav_upload_video"
