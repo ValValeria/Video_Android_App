@@ -17,7 +17,7 @@ public class UserDao extends BaseDao implements IUserDao {
     @Override
     public List<User> findUsers() throws SQLException {
         try (Connection connection = getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from users order by id");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from java_android_users order by id");
             ResultSet resultSet = preparedStatement.executeQuery();
             List<User> userList = new ArrayList<>();
 
@@ -33,7 +33,7 @@ public class UserDao extends BaseDao implements IUserDao {
     @Override
     public User findUser(Long id) throws SQLException {
         try (Connection connection = getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from users where id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from java_android_users where id = ?");
             preparedStatement.setInt(1, Math.toIntExact(id));
             ResultSet resultSet = preparedStatement.executeQuery();
             User user = null;

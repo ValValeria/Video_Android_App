@@ -11,13 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.dao.VideoDao;
 import com.google.firebase.storage.FirebaseStorage;
 
 public class UploadVideoFragment extends Fragment {
-    private FirebaseStorage firebaseStorage;
+    private VideoDao videoDao;
 
     public UploadVideoFragment() {
-        // Required empty public constructor
+        videoDao = new VideoDao();
     }
 
     @Override
@@ -30,7 +31,5 @@ public class UploadVideoFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        firebaseStorage = FirebaseStorage.getInstance();
     }
 }

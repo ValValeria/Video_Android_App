@@ -30,4 +30,6 @@
     <string name="gallery">Videos</string>
     <string name="video">Video</string>
     <string name="videos">Videos</string>
+    <string name="view">View</string>
+    <string name="no_results">No results</string>
 </resources>

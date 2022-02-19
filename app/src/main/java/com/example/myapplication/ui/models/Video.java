@@ -1,13 +1,14 @@
 package com.example.myapplication.ui.models;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Video {
     private Integer id;
     private String title;
     private String path;
     private User author;
-    private LocalDateTime createdAt;
+    private Date createdAt;
     private Integer likes;
 
     public Integer getId() {
@@ -42,11 +43,11 @@ public class Video {
         this.author = author;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 

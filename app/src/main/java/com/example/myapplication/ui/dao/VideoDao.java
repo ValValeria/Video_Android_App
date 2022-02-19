@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class VideoDao extends BaseDao implements IVideoDao{
         Video video = null;
 
         try(Connection connection = this.getConnection()) {
-            PreparedStatement preparedVideoStatement = connection.prepareStatement("select * from videos where id = ?");
+            PreparedStatement preparedVideoStatement = connection.prepareStatement("select * from java_android_videos where id = ?");
             preparedVideoStatement.setInt(1, id);
 
             boolean hasResults = preparedVideoStatement.execute();
@@ -35,7 +37,7 @@ public class VideoDao extends BaseDao implements IVideoDao{
     @Override
     public List<Video> findVideos() throws SQLException {
         try (Connection connection = getConnection()) {
-            PreparedStatement preparedVideoStatement = connection.prepareStatement("select * from videos");
+            PreparedStatement preparedVideoStatement = connection.prepareStatement("select * from java_android_videos");
             ResultSet resultSet = preparedVideoStatement.executeQuery();
             List<Video> videoList = new ArrayList<>();
 
@@ -53,10 +55,11 @@ public class VideoDao extends BaseDao implements IVideoDao{
         video.setTitle(resultSet.getString("title"));
         video.setLikes(resultSet.getInt("likes"));
         video.setPath(resultSet.getString("path"));
+        video.setCreatedAt(resultSet.getDate("created_at"));
 
         Integer userId = resultSet.getInt("user_id");
 
-        PreparedStatement preparedUserStatement = getConnection().prepareStatement("select * from users where id = ?");
+        PreparedStatement preparedUserStatement = getConnection().prepareStatement("select * from java_android_users where id = ?");
         ResultSet resultUserSet = preparedUserStatement.executeQuery();
 
         User user = new User();
@@ -68,5 +71,9 @@ public class VideoDao extends BaseDao implements IVideoDao{
         video.setAuthor(user);
 
         return video;
+    }
+
+    public void saveVideo(Video video) throws SQLException {
+        Statement statement = getConnection().createStatement();
     }
 }

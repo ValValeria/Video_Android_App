@@ -20,6 +20,7 @@ import com.example.myapplication.ui.observers.BaseObserver;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainActivity extends AppCompatActivity implements LifecycleOwner {
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                fragmentId.set(navController.getCurrentDestination().getId());
+                fragmentId.set(Objects.requireNonNull(navController.getCurrentDestination()).getId());
 
                 Bundle bundle = new Bundle();
                 bundle.putString(SEARCH_QUERY, query);
