@@ -32,4 +32,8 @@
     <string name="videos">Videos</string>
     <string name="view">View</string>
     <string name="no_results">No results</string>
+    <string name="submit">Submit</string>
+    <string name="video_title">The title of video</string>
+    <string name="user_title">Username</string>
+    <string name="user_password">Password</string>
 </resources>

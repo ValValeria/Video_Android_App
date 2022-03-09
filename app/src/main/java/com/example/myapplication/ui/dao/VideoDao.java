@@ -6,18 +6,18 @@ import com.example.myapplication.ui.models.Video;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLDataException;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
-public class VideoDao extends BaseDao implements IVideoDao{
+public class VideoDao extends BaseDao implements IVideoDao {
     @Override
     public Video findVideoById(Integer id) throws SQLException {
         Video video = null;
 
-        try(Connection connection = this.getConnection()) {
+        try (Connection connection = this.getConnection()) {
             PreparedStatement preparedVideoStatement = connection.prepareStatement("select * from java_android_videos where id = ?");
             preparedVideoStatement.setInt(1, id);
 
@@ -41,7 +41,7 @@ public class VideoDao extends BaseDao implements IVideoDao{
             ResultSet resultSet = preparedVideoStatement.executeQuery();
             List<Video> videoList = new ArrayList<>();
 
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 videoList.add(setupResultSet(resultSet));
             }
 
@@ -57,23 +57,46 @@ public class VideoDao extends BaseDao implements IVideoDao{
         video.setPath(resultSet.getString("path"));
         video.setCreatedAt(resultSet.getDate("created_at"));
 
-        Integer userId = resultSet.getInt("user_id");
-
         PreparedStatement preparedUserStatement = getConnection().prepareStatement("select * from java_android_users where id = ?");
-        ResultSet resultUserSet = preparedUserStatement.executeQuery();
 
-        User user = new User();
-        user.setId(userId);
-        user.setUsername(resultUserSet.getString("username"));
-        user.setEmail(resultUserSet.getString("email"));
-        user.setPassword(resultUserSet.getString("password"));
-
-        video.setAuthor(user);
+        setUpUser(
+                resultSet.getInt("user_id"),
+                preparedUserStatement.executeQuery(),
+                video
+        );
 
         return video;
     }
 
     public void saveVideo(Video video) throws SQLException {
-        Statement statement = getConnection().createStatement();
+        final long time = new java.util.Date().getTime();
+
+        String sql = "insert into java_android_videos(title, path, author, createdAt) " +
+                "values(?, ?, ?, ?)";
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+        statement.setString(1, video.getTitle());
+        statement.setString(2, video.getPath());
+        statement.setInt(3, video.getAuthor().getId());
+        statement.setDate(4, new Date(time));
+
+        int rows = statement.executeUpdate();
+
+        if (rows == 0) {
+            throw new SQLDataException();
+        }
+    }
+
+    private void setUpUser(
+            Integer userId,
+            ResultSet resultSet,
+            Video video
+    ) throws SQLException {
+        User user = new User();
+        user.setId(userId);
+        user.setUsername(resultSet.getString("username"));
+        user.setEmail(resultSet.getString("email"));
+        user.setPassword(resultSet.getString("password"));
+
+        video.setAuthor(user);
     }
 }

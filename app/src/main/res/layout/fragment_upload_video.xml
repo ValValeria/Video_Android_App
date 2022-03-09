@@ -16,9 +16,30 @@
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:text="@string/add_video_title"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        style="@style/TextAppearance.MaterialComponents.Headline5"/>
+    <EditText
+        android:id="@+id/titleVideo"
+        android:layout_marginTop="@dimen/unit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/video_title"
+        />
+    <Button
+        android:id="@+id/video_content"
+        android:text="@string/upload_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:minHeight="200dp"
+        android:layout_marginTop="@dimen/unit_half"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        />
+    <Button
+        android:id="@+id/nav_upload_video"
+        android:text="@string/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/unit"
+        />
 </LinearLayout>
