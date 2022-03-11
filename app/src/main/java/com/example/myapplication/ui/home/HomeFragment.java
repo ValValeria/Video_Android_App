@@ -16,13 +16,11 @@ import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentHomeBinding;
 import com.example.myapplication.ui.dao.UserDao;
 import com.example.myapplication.ui.dao.VideoDao;
-import com.google.firebase.auth.FirebaseUser;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private final VideoDao videoDao;
     private final UserDao userDao;
-    private FirebaseUser firebaseUser;
 
     public HomeFragment() {
         videoDao = new VideoDao();
