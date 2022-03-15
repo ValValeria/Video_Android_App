@@ -55,4 +55,12 @@ public class UserDao extends BaseDao implements IUserDao {
 
         return user;
     }
+
+    public void deleteUser(String username) throws SQLException {
+       Connection connection = getConnection();
+       PreparedStatement preparedStatement = connection.prepareStatement("delete from java_android_users where username = ?");
+       preparedStatement.setString(1, username);
+
+       preparedStatement.executeUpdate();
+    }
 }

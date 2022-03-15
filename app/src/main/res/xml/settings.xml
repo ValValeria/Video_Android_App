@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:title="Account">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            app:key="delete_user"
+            app:title="Delete an account"
+            app:summary="Delete your account. You can't undo the action"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Videos">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            app:key="delete_user"
+            app:title="Delete all videos"
+            app:summary="Delete your videos. You can't undo the action"/>
+    </PreferenceCategory>
+</PreferenceScreen>

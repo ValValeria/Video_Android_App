@@ -4,12 +4,12 @@ import com.example.myapplication.ui.models.User;
 import com.example.myapplication.ui.models.Video;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 
 public class VideoDao extends BaseDao implements IVideoDao {
@@ -98,5 +98,9 @@ public class VideoDao extends BaseDao implements IVideoDao {
         user.setPassword(resultSet.getString("password"));
 
         video.setAuthor(user);
+    }
+
+    public void deleteVideosByUser(String username) {
+        throw new RuntimeException();
     }
 }
