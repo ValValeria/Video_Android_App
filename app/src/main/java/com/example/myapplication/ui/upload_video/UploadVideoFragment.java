@@ -42,17 +42,22 @@ public class UploadVideoFragment extends Fragment {
     }
 
     private void onSubmit(View view) {
+        String message;
+
         try{
             final String title = fragmentUploadVideoBinding.titleVideo.getText().toString();
+            message = "Uploaded";
 
             Video video = new Video();
             video.setTitle(title);
 
             this.videoDao.saveVideo(video);
         } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+            message = "SQL ERROR";
 
-            Toast.makeText(requireActivity(), "SQL ERROR", Toast.LENGTH_SHORT).show();
+            sqlException.printStackTrace();
         }
+
+        Toast.makeText(requireActivity(), message, Toast.LENGTH_LONG).show();
     }
 }
