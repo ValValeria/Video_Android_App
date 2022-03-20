@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class BaseDao {
     public Connection getConnection() throws SQLException {
-        String url = "jdbc:mysql://remotemysql.com/".concat(BuildConfig.DB_NAME);
+        String url = "jdbc:mysql:http://remotemysql.com/".concat(BuildConfig.DB_NAME);
 
         Log.i("BaseDao", url);
 

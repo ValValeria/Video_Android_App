@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:padding="@dimen/unit"
     tools:context=".ui.home.HomeFragment">
+
     <TextView
         android:id="@+id/text_home"
         android:layout_width="match_parent"
@@ -26,6 +27,13 @@
         android:id="@+id/videos_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        />
+
+    <LinearLayout
+        android:id="@+id/no_results"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         />
 
 </LinearLayout>
