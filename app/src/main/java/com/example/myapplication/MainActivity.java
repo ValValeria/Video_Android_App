@@ -42,8 +42,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
         navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment_content_main);
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
@@ -71,13 +70,14 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        boolean result = false;
+
         if (item.getItemId() == R.id.action_settings) {
             navController.navigate(R.id.nav_setting_page);
-
-            return true;
+            result = true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return result;
     }
 
     @Override

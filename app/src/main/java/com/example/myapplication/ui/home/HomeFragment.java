@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,8 +47,8 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onStart() {
+        super.onStart();
 
         Executor executor = Executors.newSingleThreadExecutor();
         Runnable runnable = () -> {
@@ -59,14 +61,12 @@ public class HomeFragment extends Fragment {
                     binding.videosList.setAdapter(this.videoAdapter);
 
                     if (this.arrayList.size() == 0) {
-                       View noResultView = getLayoutInflater().inflate(R.layout.no_result, binding.noResults, false);
-
-                       binding.noResults.addView(noResultView);
-                       binding.noResults.invalidate();
+                        addNoResults(false);
                     }
                 });
             } catch (SQLException sqlException) {
                 sqlException.printStackTrace();
+                addNoResults(true);
             }
         };
 
@@ -77,5 +77,18 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void addNoResults(boolean isError) {
+        LinearLayout listView = binding.noResults;
+        View noResultView = getLayoutInflater().inflate(R.layout.no_result, binding.noResults, false);
+
+        if (isError) {
+            TextView textView = noResultView.findViewById(R.id.title);
+            textView.setText(R.string.sql_error);
+        }
+
+        listView.addView(noResultView);
+        listView.invalidate();
     }
 }

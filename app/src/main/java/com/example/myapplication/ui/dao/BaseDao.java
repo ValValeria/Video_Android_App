@@ -1,7 +1,5 @@
 package com.example.myapplication.ui.dao;
 
-import android.util.Log;
-
 import com.example.myapplication.BuildConfig;
 
 import java.sql.Connection;
@@ -10,12 +8,20 @@ import java.sql.SQLException;
 
 public class BaseDao {
     public Connection getConnection() throws SQLException {
-        String url = "jdbc:mysql:http://remotemysql.com/".concat(BuildConfig.DB_NAME);
+        Connection connection = null;
 
-        Log.i("BaseDao", url);
+        try {
+            String url = "jdbc:mysql://remotemysql.com:3306/".concat(BuildConfig.DB_NAME);
 
-        String user = BuildConfig.DB_USER;
-        String passwd = BuildConfig.DB_PASSWORD;
-        return DriverManager.getConnection(url, user, passwd);
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            String user = BuildConfig.DB_USER;
+            String passwd = BuildConfig.DB_PASSWORD;
+            connection = DriverManager.getConnection(url, user, passwd);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return connection;
     }
 }

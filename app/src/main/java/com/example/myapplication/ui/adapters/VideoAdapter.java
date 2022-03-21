@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,7 @@ public class VideoAdapter extends ArrayAdapter<Video> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Video video = this.videoList.get(position);
-        View view = this.layoutInflater.inflate(this.resource, parent, false);
+        @SuppressLint("ViewHolder") View view = this.layoutInflater.inflate(this.resource, parent, false);
 
         TextView titleTextView = view.findViewById(R.id.titleVideo);
         titleTextView.setText(video.getTitle());

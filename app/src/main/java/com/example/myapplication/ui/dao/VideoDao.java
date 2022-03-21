@@ -36,17 +36,20 @@ public class VideoDao extends BaseDao implements IVideoDao {
 
     @Override
     public List<Video> findVideos() throws SQLException {
+        List<Video> videoList = new ArrayList<>();
+
         try (Connection connection = getConnection()) {
-            PreparedStatement preparedVideoStatement = connection.prepareStatement("select * from java_android_videos");
-            ResultSet resultSet = preparedVideoStatement.executeQuery();
-            List<Video> videoList = new ArrayList<>();
+            if (connection != null) {
+                PreparedStatement preparedVideoStatement = connection.prepareStatement("select * from java_android_videos");
+                ResultSet resultSet = preparedVideoStatement.executeQuery();
 
-            while (resultSet.next()) {
-                videoList.add(setupResultSet(resultSet));
+                while (resultSet.next()) {
+                    videoList.add(setupResultSet(resultSet));
+                }
             }
-
-            return videoList;
         }
+
+        return videoList;
     }
 
     private Video setupResultSet(ResultSet resultSet) throws SQLException {
