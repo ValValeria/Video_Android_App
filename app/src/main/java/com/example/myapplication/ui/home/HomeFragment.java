@@ -1,21 +1,22 @@
 package com.example.myapplication.ui.home;
 
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentHomeBinding;
 import com.example.myapplication.ui.adapters.VideoAdapter;
-import com.example.myapplication.ui.dao.UserDao;
 import com.example.myapplication.ui.dao.VideoDao;
 import com.example.myapplication.ui.models.Video;
 
@@ -30,12 +31,10 @@ public class HomeFragment extends Fragment {
     private VideoAdapter videoAdapter;
 
     private final VideoDao videoDao;
-    private final UserDao userDao;
     private final ArrayList<Video> arrayList;
 
     public HomeFragment() {
         videoDao = new VideoDao();
-        userDao = new UserDao();
         arrayList = new ArrayList<>();
     }
 
@@ -50,27 +49,7 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        Executor executor = Executors.newSingleThreadExecutor();
-        Runnable runnable = () -> {
-            try {
-                this.arrayList.addAll(videoDao.findVideos());
-
-                videoAdapter = new VideoAdapter(requireContext(), R.layout.fragment_video2, this.arrayList);
-
-                this.requireView().post(() -> {
-                    binding.videosList.setAdapter(this.videoAdapter);
-
-                    if (this.arrayList.size() == 0) {
-                        addNoResults(false);
-                    }
-                });
-            } catch (SQLException sqlException) {
-                sqlException.printStackTrace();
-                addNoResults(true);
-            }
-        };
-
-        executor.execute(runnable);
+        new DownloadVideos().execute();
     }
 
     @Override
@@ -79,16 +58,55 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
-    private void addNoResults(boolean isError) {
-        LinearLayout listView = binding.noResults;
-        View noResultView = getLayoutInflater().inflate(R.layout.no_result, binding.noResults, false);
+    @SuppressLint("StaticFieldLeak")
+    private class DownloadVideos extends AsyncTask<Integer, Integer, List<Video>> {
 
-        if (isError) {
-            TextView textView = noResultView.findViewById(R.id.title);
-            textView.setText(R.string.sql_error);
+        @Override
+        protected void onPostExecute(List<Video> videos) {
+            if (arrayList.size() == 0) {
+                addNoResults(false);
+            } else {
+                removeNoResults();
+            }
         }
 
-        listView.addView(noResultView);
-        listView.invalidate();
+        @Override
+        protected List<Video> doInBackground(Integer... integers) {
+            try {
+                arrayList.addAll(videoDao.findVideos());
+
+                Handler handler = new Handler(Looper.getMainLooper());
+                Executor executor = Executors.newSingleThreadExecutor();
+
+                handler.post(() -> {
+                    videoAdapter = new VideoAdapter(requireContext(), R.layout.fragment_video2, arrayList);
+                    binding.videosList.setAdapter(videoAdapter);
+                });
+            } catch (SQLException sqlException) {
+                sqlException.printStackTrace();
+                addNoResults(true);
+            }
+
+            return arrayList;
+        }
+
+        private void addNoResults(boolean isError) {
+            LinearLayout listView = binding.noResults;
+            View noResultView = getLayoutInflater().inflate(R.layout.no_result, binding.noResults, false);
+
+            if (isError) {
+                TextView textView = noResultView.findViewById(R.id.title);
+                textView.setText(R.string.sql_error);
+            }
+
+            listView.addView(noResultView);
+            listView.invalidate();
+        }
+
+        private void removeNoResults() {
+            LinearLayout linearLayout = binding.noResults;
+            linearLayout.removeAllViews();
+            linearLayout.invalidate();
+        }
     }
 }

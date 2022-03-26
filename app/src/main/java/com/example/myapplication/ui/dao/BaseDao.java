@@ -13,7 +13,7 @@ public class BaseDao {
         try {
             String url = "jdbc:mysql://remotemysql.com:3306/".concat(BuildConfig.DB_NAME);
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
 
             String user = BuildConfig.DB_USER;
             String passwd = BuildConfig.DB_PASSWORD;
