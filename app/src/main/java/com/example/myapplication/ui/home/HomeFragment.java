@@ -23,8 +23,6 @@ import com.example.myapplication.ui.models.Video;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
@@ -41,6 +39,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+        videoAdapter = new VideoAdapter(requireContext(), R.layout.fragment_video2, arrayList);
+        binding.videosList.setAdapter(videoAdapter);
 
         return binding.getRoot();
     }
@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment {
         @Override
         protected void onPostExecute(List<Video> videos) {
             if (arrayList.size() == 0) {
-                addNoResults(false);
+                addNoResults();
             } else {
                 removeNoResults();
             }
@@ -72,33 +72,24 @@ public class HomeFragment extends Fragment {
 
         @Override
         protected List<Video> doInBackground(Integer... integers) {
-            try {
-                arrayList.addAll(videoDao.findVideos());
+            Handler handler = new Handler(Looper.getMainLooper());
 
-                Handler handler = new Handler(Looper.getMainLooper());
-                Executor executor = Executors.newSingleThreadExecutor();
+            handler.post(() -> {
+                videoAdapter.addAll(videoDao.findVideos());
 
-                handler.post(() -> {
-                    videoAdapter = new VideoAdapter(requireContext(), R.layout.fragment_video2, arrayList);
-                    binding.videosList.setAdapter(videoAdapter);
-                });
-            } catch (SQLException sqlException) {
-                sqlException.printStackTrace();
-                addNoResults(true);
-            }
+                if (videoAdapter.isEmpty()) {
+                    addNoResults();
+                }
+            });
 
             return arrayList;
         }
 
-        private void addNoResults(boolean isError) {
+        private void addNoResults() {
             LinearLayout listView = binding.noResults;
             View noResultView = getLayoutInflater().inflate(R.layout.no_result, binding.noResults, false);
-
-            if (isError) {
-                TextView textView = noResultView.findViewById(R.id.title);
-                textView.setText(R.string.sql_error);
-            }
-
+            TextView textView = noResultView.findViewById(R.id.title);
+            textView.setText(R.string.sql_error);
             listView.addView(noResultView);
             listView.invalidate();
         }

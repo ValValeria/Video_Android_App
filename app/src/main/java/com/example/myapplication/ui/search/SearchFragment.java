@@ -55,22 +55,18 @@ public class SearchFragment extends Fragment {
     }
 
     private void setVideosUI() {
-        try {
-            final LinearLayout layout = this.requireActivity().findViewById(R.id.search_items);
+        final LinearLayout layout = this.requireActivity().findViewById(R.id.search_items);
 
-            arrayList.addAll(this.videoDao.findVideos());
+        arrayList.addAll(this.videoDao.findVideos());
 
-            this.handler.post(() -> {
-                if (arrayList.size() == 0) {
-                    LayoutInflater layoutInflater = (LayoutInflater) requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    View view = layoutInflater.inflate(R.layout.no_result, layout, false);
+        this.handler.post(() -> {
+            if (arrayList.size() == 0) {
+                LayoutInflater layoutInflater = (LayoutInflater) requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view = layoutInflater.inflate(R.layout.no_result, layout, false);
 
-                    layout.addView(view);
-                    layout.invalidate();
-                }
-            });
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        }
+                layout.addView(view);
+                layout.invalidate();
+            }
+        });
     }
 }

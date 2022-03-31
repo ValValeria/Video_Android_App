@@ -20,7 +20,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.myapplication.databinding.ActivityMainBinding;
 import com.example.myapplication.ui.observers.BaseObserver;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private NavController navController;
+    private FirebaseUser firebaseUser;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,19 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+
+        firebaseAuth.addAuthStateListener(firebaseAuth -> {
+            Menu menu = navigationView.getMenu();
+
+            if (firebaseAuth.getCurrentUser() != null && firebaseAuth.getCurrentUser().isAnonymous()) {
+                menu.setGroupVisible(1, true);
+            } else {
+                menu.setGroupVisible(1, firebaseAuth.getCurrentUser() == null);
+            }
+        });
 
         getLifecycle().addObserver(new BaseObserver());
     }
@@ -96,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
         AtomicInteger fragmentId = new AtomicInteger(-1);
 
         searchView.setOnCloseListener(() -> {
-            if(fragmentId.get() == -1){
+            if (fragmentId.get() == -1) {
                 navController.navigate(fragmentId.get());
             } else {
                 navController.navigate(R.id.nav_home);

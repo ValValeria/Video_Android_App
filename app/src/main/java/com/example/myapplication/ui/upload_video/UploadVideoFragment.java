@@ -1,10 +1,7 @@
 package com.example.myapplication.ui.upload_video;
 
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +19,6 @@ import com.example.myapplication.databinding.FragmentUploadVideoBinding;
 import com.example.myapplication.ui.dao.VideoDao;
 import com.example.myapplication.ui.models.Video;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class UploadVideoFragment extends Fragment {

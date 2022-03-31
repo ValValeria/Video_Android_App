@@ -35,7 +35,7 @@ public class VideoDao extends BaseDao implements IVideoDao {
     }
 
     @Override
-    public List<Video> findVideos() throws SQLException {
+    public List<Video> findVideos(){
         List<Video> videoList = new ArrayList<>();
 
         try (Connection connection = getConnection()) {
@@ -47,6 +47,8 @@ public class VideoDao extends BaseDao implements IVideoDao {
                     videoList.add(setupResultSet(resultSet));
                 }
             }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
         }
 
         return videoList;

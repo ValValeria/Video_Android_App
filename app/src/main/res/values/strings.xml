@@ -38,4 +38,6 @@
     <string name="user_password">Password</string>
     <string name="sql_error">SQL ERROR. Please refresh the app</string>
     <string name="description">Description</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign up</string>
 </resources>
