@@ -16,11 +16,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentHomeBinding;
-import com.example.myapplication.ui.adapters.VideoAdapter;
+import com.example.myapplication.adapters.VideoAdapter;
 import com.example.myapplication.ui.dao.VideoDao;
-import com.example.myapplication.ui.models.Video;
+import com.example.myapplication.models.Video;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,9 +62,7 @@ public class HomeFragment extends Fragment {
 
         @Override
         protected void onPostExecute(List<Video> videos) {
-            if (arrayList.size() == 0) {
-                addNoResults();
-            } else {
+            if (arrayList.size() != 0) {
                 removeNoResults();
             }
         }
@@ -75,21 +72,27 @@ public class HomeFragment extends Fragment {
             Handler handler = new Handler(Looper.getMainLooper());
 
             handler.post(() -> {
-                videoAdapter.addAll(videoDao.findVideos());
-
-                if (videoAdapter.isEmpty()) {
-                    addNoResults();
+                try{
+                    videoAdapter.addAll(videoDao.findVideos());
+                } catch (Exception e) {
+                    if (videoAdapter.isEmpty()) {
+                        addNoResults(false);
+                    }
                 }
             });
 
             return arrayList;
         }
 
-        private void addNoResults() {
+        private void addNoResults(boolean isError) {
             LinearLayout listView = binding.noResults;
             View noResultView = getLayoutInflater().inflate(R.layout.no_result, binding.noResults, false);
             TextView textView = noResultView.findViewById(R.id.title);
-            textView.setText(R.string.sql_error);
+
+            if (isError) {
+                textView.setText(R.string.sql_error);
+            }
+
             listView.addView(noResultView);
             listView.invalidate();
         }

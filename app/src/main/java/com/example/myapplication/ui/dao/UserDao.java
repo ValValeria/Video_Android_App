@@ -4,7 +4,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.myapplication.ui.models.User;
+import com.example.myapplication.models.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

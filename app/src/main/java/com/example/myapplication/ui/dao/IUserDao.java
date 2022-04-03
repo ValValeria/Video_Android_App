@@ -1,6 +1,6 @@
 package com.example.myapplication.ui.dao;
 
-import com.example.myapplication.ui.models.User;
+import com.example.myapplication.models.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

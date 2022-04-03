@@ -1,6 +1,6 @@
 package com.example.myapplication.ui.dao;
 
-import com.example.myapplication.ui.models.Video;
+import com.example.myapplication.models.Video;
 
 import java.sql.SQLException;
 import java.util.List;

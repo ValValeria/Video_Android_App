@@ -16,8 +16,8 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.databinding.FragmentUploadVideoBinding;
+import com.example.myapplication.models.Video;
 import com.example.myapplication.ui.dao.VideoDao;
-import com.example.myapplication.ui.models.Video;
 
 import java.sql.SQLException;
 

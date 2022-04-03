@@ -11,6 +11,9 @@
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/videos" />
+    </group>
+    <group android:id="@+id/admin"
+           android:checkableBehavior="single">
         <item
             android:id="@+id/nav_upload_video"
             android:icon="@drawable/ic_menu_slideshow"

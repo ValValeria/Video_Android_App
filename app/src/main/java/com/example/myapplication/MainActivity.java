@@ -60,13 +60,16 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
-        firebaseAuth.addAuthStateListener(firebaseAuth -> {
-            Menu menu = navigationView.getMenu();
+        final Menu menu = navigationView.getMenu();
+        final MenuItem menuItem = menu.getItem(R.id.nav_upload_video);
 
+        firebaseAuth.addAuthStateListener(firebaseAuth -> {
             if (firebaseAuth.getCurrentUser() != null && firebaseAuth.getCurrentUser().isAnonymous()) {
                 menu.setGroupVisible(1, true);
+                menu.setGroupVisible(2, false);
             } else {
                 menu.setGroupVisible(1, firebaseAuth.getCurrentUser() == null);
+                menu.setGroupVisible(2, firebaseAuth.getCurrentUser() != null);
             }
         });
 

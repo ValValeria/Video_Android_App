@@ -1,7 +1,7 @@
 package com.example.myapplication.ui.dao;
 
-import com.example.myapplication.ui.models.User;
-import com.example.myapplication.ui.models.Video;
+import com.example.myapplication.models.User;
+import com.example.myapplication.models.Video;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -35,7 +35,7 @@ public class VideoDao extends BaseDao implements IVideoDao {
     }
 
     @Override
-    public List<Video> findVideos(){
+    public List<Video> findVideos() throws SQLException {
         List<Video> videoList = new ArrayList<>();
 
         try (Connection connection = getConnection()) {
@@ -47,8 +47,6 @@ public class VideoDao extends BaseDao implements IVideoDao {
                     videoList.add(setupResultSet(resultSet));
                 }
             }
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
         }
 
         return videoList;

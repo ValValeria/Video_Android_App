@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.adapters;
+package com.example.myapplication.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.models.Video;
+import com.example.myapplication.models.Video;
 
 import java.util.List;
 

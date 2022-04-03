@@ -1,6 +1,6 @@
-package com.example.myapplication.ui.services;
+package com.example.myapplication.services;
 
-import com.example.myapplication.ui.models.User;
+import com.example.myapplication.models.User;
 
 public class UserService {
     private User user = new User();
