@@ -18,7 +18,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.myapplication.databinding.ActivityMainBinding;
-import com.example.myapplication.ui.observers.BaseObserver;
+import com.example.myapplication.observers.BaseObserver;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -60,8 +60,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
-        final Menu menu = navigationView.getMenu();
-        final MenuItem menuItem = menu.getItem(R.id.nav_upload_video);
+        Menu menu = navigationView.getMenu();
 
         firebaseAuth.addAuthStateListener(firebaseAuth -> {
             if (firebaseAuth.getCurrentUser() != null && firebaseAuth.getCurrentUser().isAnonymous()) {

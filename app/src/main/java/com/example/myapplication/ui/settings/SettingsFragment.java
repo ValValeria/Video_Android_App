@@ -7,8 +7,8 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.dao.UserDao;
-import com.example.myapplication.ui.dao.VideoDao;
+import com.example.myapplication.dao.UserDao;
+import com.example.myapplication.dao.VideoDao;
 import com.example.myapplication.viewmodels.UserViewModel;
 
 import java.sql.SQLException;

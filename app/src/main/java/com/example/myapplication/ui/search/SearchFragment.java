@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.dao.VideoDao;
+import com.example.myapplication.dao.VideoDao;
 import com.example.myapplication.models.Video;
 
 import java.sql.SQLException;

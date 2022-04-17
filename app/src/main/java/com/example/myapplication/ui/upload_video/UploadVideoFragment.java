@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.databinding.FragmentUploadVideoBinding;
 import com.example.myapplication.models.Video;
-import com.example.myapplication.ui.dao.VideoDao;
+import com.example.myapplication.dao.VideoDao;
 
 import java.sql.SQLException;
 
@@ -31,6 +31,7 @@ public class UploadVideoFragment extends Fragment {
         videoDao = new VideoDao();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater,

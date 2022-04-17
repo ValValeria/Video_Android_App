@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.dao;
+package com.example.myapplication.dao;
 
 import com.example.myapplication.models.Video;
 

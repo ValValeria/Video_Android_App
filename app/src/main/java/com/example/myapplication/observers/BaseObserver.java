@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.observers;
+package com.example.myapplication.observers;
 
 import android.util.Log;
 
@@ -6,11 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 
-import com.example.myapplication.ui.dao.BaseDao;
+import com.example.myapplication.dao.BaseDao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.concurrent.Executors;
 
