@@ -16,6 +16,7 @@
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:text="@string/video"
+        android:textAllCaps="true"
         style="@style/TextAppearance.MaterialComponents.Headline5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
