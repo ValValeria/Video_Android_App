@@ -18,17 +18,21 @@ import androidx.fragment.app.Fragment;
 import com.example.myapplication.databinding.FragmentUploadVideoBinding;
 import com.example.myapplication.models.Video;
 import com.example.myapplication.dao.VideoDao;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.sql.SQLException;
 
 public class UploadVideoFragment extends Fragment {
     private final VideoDao videoDao;
+    private final StorageReference storageReference;
 
     private FragmentUploadVideoBinding fragmentUploadVideoBinding;
     private ActivityResultLauncher<String> mGetContent;
 
     public UploadVideoFragment() {
         videoDao = new VideoDao();
+        storageReference = FirebaseStorage.getInstance().getReference().child("/videos");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.S)
